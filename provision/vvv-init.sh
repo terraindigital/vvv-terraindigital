@@ -2,9 +2,9 @@
 # Provision WordPress Stable
 
 # Make a database, if we don't already have one
-echo -e "\nCreating database 'excelsior' (if it's not already there)"
-mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS excelsior"
-mysql -u root --password=root -e "GRANT ALL PRIVILEGES ON excelsior.* TO wp@localhost IDENTIFIED BY 'wp';"
+echo -e "\nCreating database 'terraindigital' (if it's not already there)"
+mysql -u root --password=root -e "CREATE DATABASE IF NOT EXISTS terraindigital"
+mysql -u root --password=root -e "GRANT ALL PRIVILEGES ON terraindigital.* TO wp@localhost IDENTIFIED BY 'wp';"
 echo -e "\n DB operations done.\n\n"
 
 # Nginx Logs
@@ -24,9 +24,9 @@ if [[ ! -d "${VVV_PATH_TO_SITE}/public_html" ]]; then
   cd ${VVV_PATH_TO_SITE}/public_html
 
   echo "Configuring WordPress Stable..."
-  noroot wp core config --dbname=excelsior --dbuser=wp --dbpass=wp --quiet --extra-php <<PHP
+  noroot wp core config --dbname=terraindigital --dbuser=wp --dbpass=wp --quiet --extra-php <<PHP
 // Match any requests made via xip.io.
-if ( isset( \$_SERVER['HTTP_HOST'] ) && preg_match('/^(local.excelsior.)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(.xip.io)\z/', \$_SERVER['HTTP_HOST'] ) ) {
+if ( isset( \$_SERVER['HTTP_HOST'] ) && preg_match('/^(local.terraindigital.)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(.xip.io)\z/', \$_SERVER['HTTP_HOST'] ) ) {
     define( 'WP_HOME', 'http://' . \$_SERVER['HTTP_HOST'] );
     define( 'WP_SITEURL', 'http://' . \$_SERVER['HTTP_HOST'] );
 }
@@ -35,7 +35,7 @@ define( 'WP_DEBUG', true );
 PHP
 
   echo "Installing WordPress Stable..."
-  noroot wp core install --url=local.excelsior.dev --quiet --title="Local WordPress Dev" --admin_name=admin --admin_email="admin@local.dev" --admin_password="password"
+  noroot wp core install --url=local.terraindigital.dev --quiet --title="Local WordPress Dev" --admin_name=admin --admin_email="admin@local.dev" --admin_password="password"
 
 else
 
